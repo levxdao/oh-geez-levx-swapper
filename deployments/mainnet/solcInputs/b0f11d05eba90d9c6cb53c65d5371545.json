@@ -1,0 +1,40 @@
+{
+  "language": "Solidity",
+  "sources": {
+    "contracts/Swapper.sol": {
+      "content": "pragma solidity =0.8.3;\n\ninterface IERC20 {\n    function transferFrom(address from, address to, uint256 amount) external;\n    function transfer(address to, uint256 amount) external;\n}\n\ncontract Swapper {\n    event Swap(uint256 amount, address indexed to);\n\n    address immutable public ohGeez;\n    address immutable public levx;\n\n    constructor(address _ohGeez, address _levx) {\n        ohGeez = _ohGeez;\n        levx = _levx;\n    }\n\n    function swap(uint256 amount, address to) external {\n        require(amount > 0, \"LEVX: ZERO_AMOUNT_OH_GEEZ\");\n        require(to != address(0), \"LEVX: NULL_ADDRESS_OH_GEEZ\");\n\n        IERC20(ohGeez).transferFrom(msg.sender, address(this), amount);\n        IERC20(levx).transfer(to, amount * 10);\n\n        emit Swap(amount, to);\n    }\n}\n"
+    }
+  },
+  "settings": {
+    "optimizer": {
+      "enabled": true,
+      "runs": 200
+    },
+    "outputSelection": {
+      "*": {
+        "*": [
+          "abi",
+          "evm.bytecode",
+          "evm.deployedBytecode",
+          "evm.methodIdentifiers",
+          "metadata",
+          "devdoc",
+          "userdoc",
+          "storageLayout",
+          "evm.gasEstimates"
+        ],
+        "": [
+          "ast"
+        ]
+      }
+    },
+    "metadata": {
+      "useLiteralContent": true
+    },
+    "libraries": {
+      "": {
+        "__CACHE_BREAKER__": "0x00000000d41867734bbee4c6863d9255b2b06ac1"
+      }
+    }
+  }
+}

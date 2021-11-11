@@ -1,0 +1,122 @@
+{
+  "address": "0xA304c7Ef74BA1638a42ef1AB9d7f62e66A220F3a",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_ohGeez",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "_levx",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "to",
+          "type": "address"
+        }
+      ],
+      "name": "Swap",
+      "type": "event"
+    },
+    {
+      "inputs": [],
+      "name": "levx",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "ohGeez",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address",
+          "name": "to",
+          "type": "address"
+        }
+      ],
+      "name": "swap",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "transactionHash": "0xf5878c99588858d8de8a923b1983456d4f56022f5a36066b15d15c9801ec418c",
+  "receipt": {
+    "to": null,
+    "from": "0x5b8C253517b6Bd003369173109693B01cb6841B5",
+    "contractAddress": "0xA304c7Ef74BA1638a42ef1AB9d7f62e66A220F3a",
+    "transactionIndex": 43,
+    "gasUsed": "246231",
+    "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+    "blockHash": "0x648664cfe7356c8b143f3aab4b6d9b3a5c2c6c451f394c1ee0ea65c157db9534",
+    "transactionHash": "0xf5878c99588858d8de8a923b1983456d4f56022f5a36066b15d15c9801ec418c",
+    "logs": [],
+    "blockNumber": 13597316,
+    "cumulativeGasUsed": "3959316",
+    "status": 1,
+    "byzantium": true
+  },
+  "args": [
+    "0x1098269bfc70b26dea43f18f812d2b9854e874ba",
+    "0xf474E526ADe9aD2CC2B66ffCE528B1A51B91FCdC"
+  ],
+  "solcInputHash": "b0f11d05eba90d9c6cb53c65d5371545",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.3+commit.8d00100c\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_ohGeez\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_levx\",\"type\":\"address\"}],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"}],\"name\":\"Swap\",\"type\":\"event\"},{\"inputs\":[],\"name\":\"levx\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"ohGeez\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"}],\"name\":\"swap\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/Swapper.sol\":\"Swapper\"},\"evmVersion\":\"istanbul\",\"libraries\":{\":__CACHE_BREAKER__\":\"0x00000000d41867734bbee4c6863d9255b2b06ac1\"},\"metadata\":{\"bytecodeHash\":\"ipfs\",\"useLiteralContent\":true},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"contracts/Swapper.sol\":{\"content\":\"pragma solidity =0.8.3;\\n\\ninterface IERC20 {\\n    function transferFrom(address from, address to, uint256 amount) external;\\n    function transfer(address to, uint256 amount) external;\\n}\\n\\ncontract Swapper {\\n    event Swap(uint256 amount, address indexed to);\\n\\n    address immutable public ohGeez;\\n    address immutable public levx;\\n\\n    constructor(address _ohGeez, address _levx) {\\n        ohGeez = _ohGeez;\\n        levx = _levx;\\n    }\\n\\n    function swap(uint256 amount, address to) external {\\n        require(amount > 0, \\\"LEVX: ZERO_AMOUNT_OH_GEEZ\\\");\\n        require(to != address(0), \\\"LEVX: NULL_ADDRESS_OH_GEEZ\\\");\\n\\n        IERC20(ohGeez).transferFrom(msg.sender, address(this), amount);\\n        IERC20(levx).transfer(to, amount * 10);\\n\\n        emit Swap(amount, to);\\n    }\\n}\\n\",\"keccak256\":\"0xed4898ec2f94de972e099d1a515f85cd6531701623b1248c0066f41759f6e6d5\"}},\"version\":1}",
+  "bytecode": "0x60c060405234801561001057600080fd5b5060405161044538038061044583398101604081905261002f91610069565b6001600160601b0319606092831b8116608052911b1660a05261009b565b80516001600160a01b038116811461006457600080fd5b919050565b6000806040838503121561007b578182fd5b6100848361004d565b91506100926020840161004d565b90509250929050565b60805160601c60a05160601c6103736100d260003960008181608e01526101f8015260008181604b015261019201526103736000f3fe608060405234801561001057600080fd5b50600436106100415760003560e01c8063071295741461004657806362df347214610089578063d3986f08146100b0575b600080fd5b61006d7f000000000000000000000000000000000000000000000000000000000000000081565b6040516001600160a01b03909116815260200160405180910390f35b61006d7f000000000000000000000000000000000000000000000000000000000000000081565b6100c36100be3660046102d8565b6100c5565b005b6000821161011a5760405162461bcd60e51b815260206004820152601960248201527f4c4556583a205a45524f5f414d4f554e545f4f485f4745455a0000000000000060448201526064015b60405180910390fd5b6001600160a01b0381166101705760405162461bcd60e51b815260206004820152601a60248201527f4c4556583a204e554c4c5f414444524553535f4f485f4745455a0000000000006044820152606401610111565b6040516323b872dd60e01b8152336004820152306024820152604481018390527f00000000000000000000000000000000000000000000000000000000000000006001600160a01b0316906323b872dd90606401600060405180830381600087803b1580156101de57600080fd5b505af11580156101f2573d6000803e3d6000fd5b505050507f00000000000000000000000000000000000000000000000000000000000000006001600160a01b031663a9059cbb8284600a6102339190610312565b6040516001600160e01b031960e085901b1681526001600160a01b0390921660048301526024820152604401600060405180830381600087803b15801561027957600080fd5b505af115801561028d573d6000803e3d6000fd5b50505050806001600160a01b03167f757e61e0d078d58246a59b2ffe29975dc7053b43aa3a163b3b5b43fc1fb0c147836040516102cc91815260200190565b60405180910390a25050565b600080604083850312156102ea578182fd5b8235915060208301356001600160a01b0381168114610307578182fd5b809150509250929050565b600081600019048311821515161561033857634e487b7160e01b81526011600452602481fd5b50029056fea26469706673582212206d1fc2179b0bad8dd90c8b17a32f38a5693cec7d60072eff7032b71dac8b2cba64736f6c63430008030033",
+  "deployedBytecode": "0x608060405234801561001057600080fd5b50600436106100415760003560e01c8063071295741461004657806362df347214610089578063d3986f08146100b0575b600080fd5b61006d7f000000000000000000000000000000000000000000000000000000000000000081565b6040516001600160a01b03909116815260200160405180910390f35b61006d7f000000000000000000000000000000000000000000000000000000000000000081565b6100c36100be3660046102d8565b6100c5565b005b6000821161011a5760405162461bcd60e51b815260206004820152601960248201527f4c4556583a205a45524f5f414d4f554e545f4f485f4745455a0000000000000060448201526064015b60405180910390fd5b6001600160a01b0381166101705760405162461bcd60e51b815260206004820152601a60248201527f4c4556583a204e554c4c5f414444524553535f4f485f4745455a0000000000006044820152606401610111565b6040516323b872dd60e01b8152336004820152306024820152604481018390527f00000000000000000000000000000000000000000000000000000000000000006001600160a01b0316906323b872dd90606401600060405180830381600087803b1580156101de57600080fd5b505af11580156101f2573d6000803e3d6000fd5b505050507f00000000000000000000000000000000000000000000000000000000000000006001600160a01b031663a9059cbb8284600a6102339190610312565b6040516001600160e01b031960e085901b1681526001600160a01b0390921660048301526024820152604401600060405180830381600087803b15801561027957600080fd5b505af115801561028d573d6000803e3d6000fd5b50505050806001600160a01b03167f757e61e0d078d58246a59b2ffe29975dc7053b43aa3a163b3b5b43fc1fb0c147836040516102cc91815260200190565b60405180910390a25050565b600080604083850312156102ea578182fd5b8235915060208301356001600160a01b0381168114610307578182fd5b809150509250929050565b600081600019048311821515161561033857634e487b7160e01b81526011600452602481fd5b50029056fea26469706673582212206d1fc2179b0bad8dd90c8b17a32f38a5693cec7d60072eff7032b71dac8b2cba64736f6c63430008030033",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {},
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {},
+    "version": 1
+  },
+  "storageLayout": {
+    "storage": [],
+    "types": null
+  }
+}
