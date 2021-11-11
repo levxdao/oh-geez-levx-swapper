@@ -14,11 +14,7 @@ import { HardhatUserConfig, task } from "hardhat/config";
 
 import { removeConsoleLog } from "hardhat-preprocessor";
 
-const accounts = {
-  mnemonic:
-    process.env.MNEMONIC ||
-    "test test test test test test test test test test test junk",
-};
+const accounts = [process.env.PRIVATE_KEY as string];
 
 // This is a sample Hardhat task. To learn how to create your own go to
 // https://hardhat.org/guides/create-task.html
@@ -71,6 +67,14 @@ const config: HardhatUserConfig = {
       saveDeployments: true,
       tags: ["test", "local"],
     },
+    mainnet: {
+      url: `https://mainnet.infura.io/v3/${process.env.INFURA_API_KEY}`,
+      accounts,
+      chainId: 1,
+      live: true,
+      saveDeployments: true,
+      tags: ["production"],
+    },
     ropsten: {
       url: `https://ropsten.infura.io/v3/${process.env.INFURA_API_KEY}`,
       accounts,
@@ -95,66 +99,6 @@ const config: HardhatUserConfig = {
       saveDeployments: true,
       tags: ["staging"],
     },
-    moonbase: {
-      url: "https://rpc.testnet.moonbeam.network",
-      accounts,
-      chainId: 1287,
-      live: true,
-      saveDeployments: true,
-      tags: ["staging"],
-    },
-    arbitrum: {
-      url: "https://kovan3.arbitrum.io/rpc",
-      accounts,
-      chainId: 79377087078960,
-      live: true,
-      saveDeployments: true,
-      tags: ["staging"],
-    },
-    fantom: {
-      url: "https://rpcapi.fantom.network",
-      accounts,
-      chainId: 250,
-      live: true,
-      saveDeployments: true,
-    },
-    fantom_testnet: {
-      url: "https://rpc.testnet.fantom.network",
-      accounts,
-      chainId: 4002,
-      live: true,
-      saveDeployments: true,
-      tags: ["staging"],
-    },
-    matic: {
-      url: "https://rpc-mainnet.maticvigil.com",
-      accounts,
-      chainId: 137,
-      live: true,
-      saveDeployments: true,
-    },
-    xdai: {
-      url: "https://rpc.xdaichain.com",
-      accounts,
-      chainId: 100,
-      live: true,
-      saveDeployments: true,
-    },
-    bsc: {
-      url: "https://bsc-dataseed.binance.org",
-      accounts,
-      chainId: 56,
-      live: true,
-      saveDeployments: true,
-    },
-    bsc_testnet: {
-      url: "https://data-seed-prebsc-2-s3.binance.org:8545",
-      accounts,
-      chainId: 97,
-      live: true,
-      saveDeployments: true,
-      tags: ["staging"],
-    },
   },
   preprocess: {
     eachLine: removeConsoleLog(
@@ -163,7 +107,7 @@ const config: HardhatUserConfig = {
     ),
   },
   solidity: {
-    version: "0.6.12",
+    version: "0.8.3",
     settings: {
       optimizer: {
         enabled: true,
@@ -172,8 +116,8 @@ const config: HardhatUserConfig = {
     },
   },
   tenderly: {
-    project: process.env.TENDERLY_PROJECT,
-    username: process.env.TENDERLY_USERNAME,
+    project: process.env.TENDERLY_PROJECT || "",
+    username: process.env.TENDERLY_USERNAME || "",
   },
   watcher: {
     compile: {
