@@ -1,30 +1,30 @@
-import "dotenv/config";
-import "@nomiclabs/hardhat-etherscan";
-import "@nomiclabs/hardhat-solhint";
-import "@nomiclabs/hardhat-waffle";
-import "hardhat-deploy";
-import "hardhat-gas-reporter";
-import "hardhat-spdx-license-identifier";
-import "hardhat-watcher";
-import "solidity-coverage";
-import "@typechain/hardhat";
-import "@tenderly/hardhat-tenderly";
+import "@nomiclabs/hardhat-etherscan"
+import "@nomiclabs/hardhat-solhint"
+import "@nomiclabs/hardhat-waffle"
+import "@tenderly/hardhat-tenderly"
+import "@typechain/hardhat"
+import "dotenv/config"
+import "hardhat-deploy"
+import "hardhat-gas-reporter"
 
-import { HardhatUserConfig, task } from "hardhat/config";
+import { removeConsoleLog } from "hardhat-preprocessor"
+import "hardhat-spdx-license-identifier"
+import "hardhat-watcher"
 
-import { removeConsoleLog } from "hardhat-preprocessor";
+import { HardhatUserConfig, task } from "hardhat/config"
+import "solidity-coverage"
 
-const accounts = [process.env.PRIVATE_KEY as string];
+const accounts = [process.env.PRIVATE_KEY as string]
 
 // This is a sample Hardhat task. To learn how to create your own go to
 // https://hardhat.org/guides/create-task.html
 task("accounts", "Prints the list of accounts", async (args, { ethers }) => {
-  const accounts = await ethers.getSigners();
+  const accounts = await ethers.getSigners()
 
   for (const account of accounts) {
-    console.log(await account.address);
+    console.log(await account.address)
   }
-});
+})
 
 const config: HardhatUserConfig = {
   defaultNetwork: "hardhat",
@@ -101,10 +101,7 @@ const config: HardhatUserConfig = {
     },
   },
   preprocess: {
-    eachLine: removeConsoleLog(
-      (bre) =>
-        bre.network.name !== "hardhat" && bre.network.name !== "localhost"
-    ),
+    eachLine: removeConsoleLog((bre) => bre.network.name !== "hardhat" && bre.network.name !== "localhost"),
   },
   solidity: {
     version: "0.8.3",
@@ -126,8 +123,8 @@ const config: HardhatUserConfig = {
       verbose: true,
     },
   },
-};
+}
 
 // You need to export an object to set up your config
 // Go to https://hardhat.org/config/ to learn more
-export default config;
+export default config

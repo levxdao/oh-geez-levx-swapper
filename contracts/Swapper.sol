@@ -1,15 +1,20 @@
 pragma solidity =0.8.3;
 
 interface IERC20 {
-    function transferFrom(address from, address to, uint256 amount) external;
+    function transferFrom(
+        address from,
+        address to,
+        uint256 amount
+    ) external;
+
     function transfer(address to, uint256 amount) external;
 }
 
 contract Swapper {
     event Swap(uint256 amount, address indexed to);
 
-    address immutable public ohGeez;
-    address immutable public levx;
+    address public immutable ohGeez;
+    address public immutable levx;
 
     constructor(address _ohGeez, address _levx) {
         ohGeez = _ohGeez;
